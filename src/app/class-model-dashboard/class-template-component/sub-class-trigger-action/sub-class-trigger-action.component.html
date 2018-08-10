@@ -1,0 +1,385 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="class-div">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th width="15%" scope="col">Triggering Event</th>
+                        <th width="15%" scope="col">Trigger Type</th>
+                        <th width="15%" scope="col">Sort Order</th>
+                        <th width="15%" scope="col">Db SQL Syntax</th>
+                        <th colspan="2" width="40%" scope="col" class="text-right">
+                            <button type="button" class="btn btn-light" (click)="addProperty()">Add Row</button>
+                            <button type="button" class="btn btn-light" (click)="showAllProp()">Show All Properties</button>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody [dragula]='"bag-task5"'>
+                    <ng-container *ngIf="checkInstanceOfArray(utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classTriggerActnCnfg']);else singleObjectBlock">
+                        <ng-container *ngFor='let singleProp of utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classTriggerActnCnfg"]; let i = index'>
+                            <tr id="{{i}}" class="normal-row">
+
+
+                                <td *ngIf="singleProp !=null && singleProp!=undefined && singleProp.triggeringEvent!=undefined && singleProp.triggeringEvent!=null">
+                                    <input type="text" value='{{singleProp.triggeringEvent}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classTriggerActnCnfg"][i]["triggeringEvent"]'
+                                        class="form-control">
+                                </td>
+
+                                <td *ngIf="singleProp !=null && singleProp!=undefined && singleProp.triggerType!=undefined && singleProp.triggerType!=null">
+                                    <input type="text" value='{{singleProp.triggerType}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classTriggerActnCnfg"][i]["triggerType"]'
+                                        class="form-control">
+                                </td>
+
+                                <td *ngIf="singleProp !=null && singleProp!=undefined && singleProp.sortOrder!=undefined && singleProp.sortOrder!=null">
+                                    <input type="text" value='{{singleProp.sortOrder}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classTriggerActnCnfg"][i]["sortOrder"]'
+                                        class="form-control">
+                                </td>
+
+                                <td *ngIf="singleProp !=null && singleProp!=undefined && singleProp.dbSqlSyntax!=undefined && singleProp.dbSqlSyntax!=null">
+                                    <input type="text" value='{{singleProp.dbSqlSyntax}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classTriggerActnCnfg"][i]["dbSqlSyntax"]'
+                                        class="form-control">
+                                </td>
+                                <td class="text-left" width="26%">
+                                    <button type="button" class="btn btn-secondary" (click)="openProperties(this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classTriggerActnCnfg'][i]['triggeringEvent'],this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classTriggerActnRef'][i]['classTraPropertyCnfg'],i)">Properties</button>
+
+                                </td> 
+                                <td class="text-right">
+                                    <!-- <button title="Rearrange" class="row-btns">
+                                        <span class="exchange icon2"></span>
+                                    </button> -->
+                                    <button title="Copy" class="row-btns">
+                                        <span class="copy icon2" (click)="copyProperty(i)"></span>
+                                    </button>
+                                      <button title="Delete" class="row-btns" mwlConfirmationPopover popoverTitle="delete" placement="left" (confirm)="deleteProperty(singleProp.idEle,i)"
+                                                    [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage">
+                                    <span class="trash icon2"></span>
+                                  </button>
+                                    
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                    <ng-template #singleObjectBlock>
+                        <ng-container *ngIf='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classTriggerActnCnfg"]'
+                            !='undefined'>
+
+                            <tr class="normal-row">
+                                <td>
+                                    <input type="text" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classTriggerActnCnfg"][i]["triggeringEvent"]}}'
+                                        [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classTriggerActnCnfg"]["triggeringEvent"]'
+                                        class="form-control" placeholder="0">
+                                </td>
+                                <td>
+                                    <input type="text" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classTriggerActnCnfg"][i]["triggerType"]}}'
+                                        [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classTriggerActnCnfg"]["triggerType"]'
+                                        class="form-control" placeholder="0">
+                                </td>
+                                <td>
+                                    <input type="text" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classTriggerActnCnfg"][i]["sortOrder"]}}'
+                                        [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classTriggerActnCnfg"]["sortOrder"]'
+                                        class="form-control" placeholder="0">
+                                </td>
+                                <td>
+                                    <input type="text" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classTriggerActnCnfg"][i]["dbSqlSyntax"]}}'
+                                        [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classTriggerActnCnfg"]["dbSqlSyntax"]'
+                                        class="form-control" placeholder="0">
+                                </td>
+                                <td class="text-left" width="26%">
+                                    <button type="button" class="btn btn-secondary" (click)="openProperties(this.utilityService.currentClassObject['class-xml']['class-cnfg']['app-space-cntx'][1]['class-trigger-actn-cnfgs']['triggeringEvent'])">Properties</button>
+
+                                </td>
+                                <td class="text-right">
+                                <!-- <button title="Rearrange" class="row-btns">
+                                        <span class="exchange icon2"></span>
+                                    </button> -->
+                                <button title="Copy" class="row-btns">
+                                        <span class="copy icon2" (click)="copySIngleProperty(0)"></span>
+                                    </button>
+                                     <button title="Delete" class="row-btns" mwlConfirmationPopover popoverTitle="delete" placement="left" (confirm)="deleteProperty(singleProp.idEle)"
+                                                    [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage">
+                                    <span class="trash icon2"></span>
+                                  </button>
+                               
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-template>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+<div id="trigger-properties-popup" class="popup">
+
+    <div class="popupBg">
+    </div>
+    <!--popupBg end-->
+    <div class="properties-popup">
+        <ng-container *ngIf="checkInstanceOfArray(utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classTriggerActnRef']);else singleBlock">
+
+            <ng-container *ngFor='let singleProp of utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classTriggerActnRef"]; let i = index'>
+                <div style="display: none" class="top-bar" id="topbar_{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classTriggerActnRef'][i]['triggeringEvent']}}_{{i}}">
+                    <span class="title">{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classTriggerActnRef'][i]['triggeringEvent']}}
+                        Properties
+                    </span>
+                    <a (click)="popupClose(this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classTriggerActnRef'][i]['triggeringEvent'],i)"
+                        class="close-btn float-right">
+                        <img src="assets/images/close-grey.png">
+                    </a>
+                    <div class="clearfix"></div>
+                </div>
+                <div style="display: none" class="container-fluid medium-small-height properties-content" id="popupProp_{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classTriggerActnRef'][i]['triggeringEvent']}}_{{i}}">
+                    <div class="class-div full-height">
+                        <div class="full-height">
+                            <div class="float-right margin-bottom-12">
+                                <button type="button" class="btn btn-light" (click)="addSubProperty(i)">Add Row</button>
+                                <!-- <button type="button" class="btn btn-light">Delete All</button> -->
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="overflow-auto medium-large-height">
+                                <table class="table table-sm">
+                                    <tbody [dragula]='"popup-bag-task5"'>
+                                    <ng-container *ngFor='let insideProp of utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classTriggerActnRef"][i]["classTraPropertyCnfg"]; let j = index'>
+                                        <tr id="{{j}}">
+                                            <td *ngIf="insideProp.propertyCode!=undefined && insideProp.propertyCode!=null">
+                                                <input type="text" value='{{insideProp.propertyCode}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classTriggerActnRef"][i]["classTraPropertyCnfg"][j]["propertyCode"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td *ngIf="insideProp.propertyType!=undefined && insideProp.propertyType!=null">
+                                                <input type="text" value='{{insideProp.propertyType}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classTriggerActnRef"][i]["classTraPropertyCnfg"][j]["propertyType"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td *ngIf="insideProp.propertyValue!=undefined && insideProp.propertyValue!=null">
+                                                <input type="text" value='{{insideProp.propertyValue}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classTriggerActnRef"][i]["classTraPropertyCnfg"][j]["propertyValue"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td class="text-right">
+                                                    <!-- <button title="Rearrange" class="row-btns">
+                                                    <span class="exchange icon2"></span>
+                                                </button> -->
+                                                    <button title="Copy" class="row-btns">
+                                                    <span class="copy icon2" (click)="copySubProperty(i,j)"></span>
+                                                </button>
+                                                 <button title="Delete" class="row-btns" mwlConfirmationPopover popoverTitle="delete" placement="left" (confirm)="deleteSubProperty(i,j)"
+                                                    [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage">
+                                    <span class="trash icon2"></span>
+                                  </button>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: none" class="bottom-div" id="bottom_{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classTriggerActnRef'][i]['triggeringEvent']}}_{{i}}">
+                    <button class="btn btn-success float-right margin-left-10" (click)="popupClose(this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classTriggerActnRef'][i]['triggeringEvent'],i)"><span class="fa fa-save"></span> Save</button>
+                    <!-- <button class="btn btn-secondary float-right">Cancel</button> -->
+                    <div class="clearfix"></div>
+                </div>
+            </ng-container>
+        </ng-container>
+        <ng-template #singleBlock>
+            <div style="display: none" class="top-bar" id="topbar_{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classTriggerActnRef']['triggeringEvent']}}_0">
+                <span class="title">{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classTriggerActnRef']['triggeringEvent']}}
+                    Properties
+                </span>
+                <a (click)="popupClose(this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classTriggerActnRef']['triggeringEvent'],0)"
+                    class="close-btn float-right">
+                    <img src="assets/images/close-grey.png">
+                </a>
+                <div class="clearfix"></div>
+            </div>
+            <div style="display: none" class="container-fluid medium-small-height" id="popupProp_{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classTriggerActnRef']['triggeringEvent']}}_0">
+                <div class="class-div full-height">
+                    <div class="full-height">
+                        <div class="float-right margin-bottom-12">
+                            <button type="button" class="btn btn-light" (click)="addSubProperty(0)">Add Row</button>
+                            <!-- <button type="button" class="btn btn-light">Delete All</button> -->
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="overflow-auto medium-large-height">
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr *ngFor='let insideProp of utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classTriggerActnRef"]["classTraPropertyCnfg"]; let j = index'>
+                                        <td *ngIf="insideProp.propertyCode!=undefined && insideProp.propertyCode!=null">
+                                            <input type="text" value='{{insideProp.propertyCode}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classTriggerActnRef"]["classTraPropertyCnfg"][j]["propertyCode"]'
+                                                class="form-control form-control-sm">
+                                        </td>
+                                        <td *ngIf="insideProp.propertyType!=undefined && insideProp.propertyType!=null">
+                                            <input type="text" value='{{insideProp.propertyType}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classTriggerActnRef"]["classTraPropertyCnfg"][j]["propertyType"]'
+                                                class="form-control form-control-sm">
+                                        </td>
+                                        <td *ngIf="insideProp.propertyValue!=undefined && insideProp.propertyValue!=null">
+                                            <input type="text" value='{{insideProp.propertyValue}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classTriggerActnRef"]["classTraPropertyCnfg"][j]["propertyValue"]'
+                                                class="form-control form-control-sm">
+                                        </td>
+                                        <td class="text-right">
+                                                    <!-- <button title="Rearrange" class="row-btns">
+                                                <span class="exchange icon2"></span>
+                                            </button> -->
+                                                    <button title="Copy" class="row-btns">
+                                                <span class="copy icon2" (click)="copySubProperty(0,j)"></span>
+                                            </button>
+                                             <button title="Delete" class="row-btns" mwlConfirmationPopover popoverTitle="delete" placement="left" (confirm)="deleteSubProperty(0,j)"
+                                                    [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage">
+                                    <span class="trash icon2"></span>
+                                  </button>
+                                                   
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: none" class="bottom-div" id="bottom_{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classTriggerActnRef'][i]['triggeringEvent']}}_0">
+                <button class="btn btn-success float-right margin-left-10" (click)="popupClose(this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classTriggerActnRef'][i]['triggeringEvent'],0)"><span class="fa fa-save"></span> Save & Close</button>
+                <!-- <button class="btn btn-secondary float-right">Cancel</button> -->
+                <div class="clearfix"></div>
+            </div>
+        </ng-template>
+    </div>
+    <!--selectRoute end-->
+</div>
+
+<div id="all-trigger-properties-popup" class="popup">
+
+    <div class="popupBg">
+    </div>
+    <!--popupBg end-->
+    <div class="properties-popup">
+
+
+        <div class="top-bar">
+            <a (click)="allPopupClose()" class="close-btn float-right">
+                <img src="assets/images/close-grey.png">
+            </a>
+            <div class="clearfix"></div>
+        </div>
+        <div class="overflow-auto properties-content medium-small-height">
+            <ng-container *ngIf="checkInstanceOfArray(utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classTriggerActnRef']);else singleAllBlock">
+                <ng-container *ngFor='let singleProp of utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classTriggerActnRef"]; let i = index'>
+                    <div class="container-fluid" id="popupProp_{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classTriggerActnRef'][i]['triggeringEvent']}}_{{i}}">
+                        <div class="class-div full-height">
+                            <div class="full-height">
+                                <span class="title">{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classTriggerActnRef'][i]['triggeringEvent']}}
+                                    Properties
+                                </span>
+
+                                <div class="float-right margin-bottom-12">
+                                    <button type="button" class="btn btn-light" (click)="addSubProperty(i)">Add Row</button>
+                                    <!-- <button type="button" class="btn btn-light">Delete All</button> -->
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="">
+                                    <table class="table table-sm">
+                                        <tbody>
+                                            <tr *ngFor='let insideProp of utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classTriggerActnRef"][i]["classTraPropertyCnfg"]; let j = index'>
+                                                <td *ngIf="insideProp.propertyCode!=undefined && insideProp.propertyCode!=null">
+                                                    <input type="text" value='{{insideProp.propertyCode}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classTriggerActnRef"][i]["classTraPropertyCnfg"][j]["propertyCode"]'
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                                <td *ngIf="insideProp.propertyType!=undefined && insideProp.propertyType!=null">
+                                                    <input type="text" value='{{insideProp.propertyType}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classTriggerActnRef"][i]["classTraPropertyCnfg"][j]["propertyType"]'
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                                <td *ngIf="insideProp.propertyValue!=undefined && insideProp.propertyValue!=null">
+                                                    <input type="text" value='{{insideProp.propertyValue}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classTriggerActnRef"][i]["classTraPropertyCnfg"][j]["propertyValue"]'
+                                                        class="form-control form-control-sm">
+                                                </td>
+                                                <td class="text-right">
+                                                    <!-- <button title="Rearrange" class="row-btns">
+                                                        <span class="exchange icon2"></span>
+                                                    </button> -->
+                                                    <button title="Copy" class="row-btns">
+                                                        <span class="copy icon2" (click)="copySubProperty(i,j)"></span>
+                                                    </button>
+                                                     <button title="Delete" class="row-btns" mwlConfirmationPopover popoverTitle="delete" placement="left" (confirm)="deleteSubProperty(i,j)"
+                                                    [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage">
+                                    <span class="trash icon2"></span>
+                                  </button>
+                                                   
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </ng-container>
+            </ng-container>
+            <ng-template #singleAllBlock>
+                <div style="display: none" class="container-fluid" id="popupProp_{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classTriggerActnCnfg']['triggeringEvent']}}_0">
+                    <div class="class-div full-height">
+                        <div class="full-height">
+                            <span class="title">{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classTriggerActnCnfg']['triggeringEvent']}}
+                                Properties
+                            </span>
+
+                            <div class="float-right margin-bottom-12">
+                                <button type="button" class="btn btn-light" (click)="addSubProperty(0)">Add Row</button>
+                                <!-- <button type="button" class="btn btn-light">Delete All</button> -->
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr *ngFor='let insideProp of utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classTriggerActnRef"]["classTraPropertyCnfg"]; let j = index'>
+                                            <td *ngIf="insideProp.propertyCode!=undefined && insideProp.propertyCode!=null">
+                                                <input type="text" value='{{insideProp.propertyCode}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classTriggerActnRef"]["classTraPropertyCnfg"][j]["propertyCode"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td *ngIf="insideProp.propertyType!=undefined && insideProp.propertyType!=null">
+                                                <input type="text" value='{{insideProp.propertyType}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classTriggerActnRef"]["classTraPropertyCnfg"][j]["propertyType"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td *ngIf="insideProp.propertyValue!=undefined && insideProp.propertyValue!=null">
+                                                <input type="text" value='{{insideProp.propertyValue}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classTriggerActnRef"]["classTraPropertyCnfg"][j]["propertyValue"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td class="text-right">
+                                                    <!-- <button title="Rearrange" class="row-btns">
+                                                    <span class="exchange icon2"></span>
+                                                </button> -->
+                                                    <button title="Copy" class="row-btns">
+                                                    <span class="copy icon2" (click)="copySubProperty(0,j)"></span>
+                                                </button>
+                                                 <button title="Delete" class="row-btns" mwlConfirmationPopover popoverTitle="delete" placement="left" (confirm)="deleteSubProperty(0,j)"
+                                                    [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage">
+                                    <span class="trash icon2"></span>
+                                  </button>
+                                                   
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </ng-template>
+        </div>
+        <div class="bottom-div">
+            <button class="btn btn-success float-right margin-left-10" (click)="allPopupClose()"><span class="fa fa-save"></span> Save & Close</button>
+            <!-- <button class="btn btn-secondary float-right">Cancel</button> -->
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+    <!--selectRoute end-->

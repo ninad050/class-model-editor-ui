@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="class-div">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th width="20%" scope="col">Property Code</th>
+                        <th width="12%" scope="col">Owner Cntx</th>
+                        <th width="16%" scope="col">Presentation Cntx</th>
+                        <th width="20%" scope="col">Property Type</th>
+                        <th width="20%" scope="col">Property Value</th>
+                        <th width="12%" class="text-right" scope="col">
+                            <button type="button" class="btn btn-light" (click)="addProperty()">Add Row</button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let singleProp of propertyList; let i = index">
+                        <td>
+                            <a class="btn btn-default btn-select btn-select-light">
+                                <input type="hidden" class="btn-select-input" id="" name="" value="" />
+                                <span class="btn-select-value">Description</span>
+                                <span class='btn-select-arrow fa fa-chevron-down'></span>
+                                <ul>
+                                    <li>Code</li>
+                                    <li>Code</li>
+                                    <li>Code</li>
+                                </ul>
+                            </a>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="/EC">
+                        </td>
+                        <td>
+                            <a class="btn btn-default btn-select btn-select-light">
+                                <input type="hidden" class="btn-select-input" id="" name="" value="" />
+                                <span class="btn-select-value">Application</span>
+                                <span class='btn-select-arrow fa fa-chevron-down'></span>
+                                <ul>
+                                    <li>Object</li>
+                                    <li>Object</li>
+                                    <li>Object</li>
+                                </ul>
+                            </a>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="Description">
+                        </td>
+                        <td class="text-right">
+                            <button class="row-btns">
+                                <!-- <span class="exchange icon2"></span> -->
+                                <span class="exchange icon2"></span>
+                            </button>
+                            <button class="row-btns">
+                                <!-- <span class="copy icon2"></span> -->
+                                <span class="copy icon2"></span>
+                            </button>
+                            <button class="row-btns">
+                                <!-- <span class="trash icon2" (click)="deleteProperty(singleProp.idEle)"></span> -->
+                                <span class="trash icon2" (click)="deleteProperty(singleProp.idEle)"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

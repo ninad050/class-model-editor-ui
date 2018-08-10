@@ -1,0 +1,78 @@
+@media (min-width:0px) and (max-width:767px){
+    .login-page {
+        width: 400px;
+
+        .card{
+            padding: 25px !important;
+
+            .check-style {
+                font-size: 14px;
+
+                .checkmark {
+                    top: 1px;
+                }
+            }
+
+            .form-check{
+                padding-left: 0;
+            }
+
+            a{
+                padding-left: 0;
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+@media (max-width:500px){
+    .login-page {
+        width: 90%;
+
+        .logo{
+            width: 80% !important;
+        }
+    }
+} 
+
+
+
+@media (max-width:350px){
+    .login-page {
+
+        .logo{
+            width: 90% !important;
+        }
+
+        .card{
+            padding: 20px !important;
+
+            .check-style {
+                font-size: 12px;
+
+                .checkmark {
+                    top: 0px;
+                }
+            }
+
+            a{
+                font-size: 12px;
+            }
+        }
+    }
+} 
+
+@media (min-width:1024px) and (max-width:1200px){
+    content{
+        .tab-content{
+            .tab-pane{
+                .nav-tabs{
+                    .nav-link{
+                        padding: 2px 8px !important;
+                        font-size: 12px !important;
+                    }
+                }
+            }
+        }
+    }
+}

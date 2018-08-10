@@ -1,0 +1,468 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="class-div">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th width="5%" scope="col">Is Key</th>
+                        <th width="15%" scope="col">Attribute Name</th>
+                        <th width="15%" scope="col">Data Type</th>
+                        <th width="15%" scope="col">DB Mapping Type</th>
+                        <th width="15%" scope="col">DB SQL Syntax</th>
+                        <th colspan="3" width="36%" scope="col" class="text-right">
+                            <button type="button" class="btn btn-light" (click)="addProperty('ClassAttribute')">Add Row</button>
+                            <button type="button" class="btn btn-light" (click)="showAllProp()">Show All Properties</button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody [dragula]='"bag-task2"'>
+                    <ng-container *ngIf="checkInstanceOfArray(utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classAttributeCnfg']);else singleObjectBlock">
+                        <ng-container *ngFor='let singleProp of utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]; let i = index'>
+                            <ng-container *ngIf=" singleProp !=null && singleProp!=undefined">
+                                <tr id="{{i}}">
+                                    <td width="100%" colspan="6" class="padding0">
+                                        <table width="100%">
+                                            <tr class="normal-row">
+
+                                                <!-- <td *ngIf=" singleProp !=null && singleProp!=undefined && singleProp.isKey!=undefined && singleProp.isKey!=null  ; else newAttribute">
+                                                        <input type="text" value='{{singleProp.isKey}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"][i]["isKey"]'
+                                                            class="form-control">
+                                                    </td> -->
+
+                                                <td width="5%" *ngIf=" singleProp !=null && singleProp!=undefined && singleProp.isKey!=undefined && singleProp.isKey!=null  ; else newAttribute" >
+                                                    <input type="checkbox" id="checkbox_{{i}}" class="form-control" (click)='convertToString(i)'>
+                                                </td>
+                                                <td width="15%" *ngIf="singleProp !=null && singleProp!=undefined && singleProp.attributeName!=undefined && singleProp.attributeName!=null; else newAttribute">
+                                                    <input type="text" value='{{singleProp.attributeName}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"][i]["attributeName"]'
+                                                        class="form-control">
+                                                </td>
+
+                                                <td width="15%" *ngIf="singleProp !=null && singleProp!=undefined && singleProp.dataType!=undefined && singleProp.dataType!=null ; else newAttribute">
+                                                    <input type="text" value='{{singleProp.dataType}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"][i]["dataType"]'
+                                                        class="form-control">
+                                                </td>
+
+                                                <td width="15%" *ngIf="singleProp !=null && singleProp!=undefined && singleProp.dbMappingType!=undefined && singleProp.dbMappingType!=null ; else newAttribute">
+                                                    <input type="text" value='{{singleProp.dbMappingType}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"][i]["dbMappingType"]'
+                                                        class="form-control">
+                                                </td>
+                                                <td width="15%" *ngIf="singleProp !=null && singleProp!=undefined && singleProp.dbSqlSyntax!=undefined && singleProp.dbSqlSyntax!=null; else newAttribute">
+                                                    <input type="text" value='{{singleProp.dbSqlSyntax}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"][i]["dbSqlSyntax"]'
+                                                        class="form-control">
+                                                </td>
+                                                <ng-template #newAttribute>
+                                                    <td>
+                                                        <input type="text" value='' class="form-control" />
+                                                    </td>
+                                                </ng-template>
+
+                                                <td width="36%" class="text-left" width="26%">
+                                                    <button type="button" [ngClass]="getReferenceBtnClass(singleProp,'ref') ? 'btn btn-success': 'btn btn-secondary'" (click)="openReference(this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classAttributeCnfg'][i]['attributeName'])">Reference <img src="assets/images/down-arrow.png" class="downArrow"></button>
+                                                    <button type="button" [ngClass]="getReferenceBtnClass(singleProp,'join') ? 'btn btn-success': 'btn btn-secondary'" (click)="openJoin(this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classAttributeCnfg'][i]['attributeName'])">Join <img src="assets/images/down-arrow.png" class="downArrow"></button>
+                                                    <button type="button" class="btn btn-secondary" (click)="openProperties(this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classAttributeCnfg'][i]['attributeName'],this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classAttributeRef'][i]['classAttrPropertyCnfg'])">Properties</button>
+
+                                                </td>
+                                                <td class="text-right">
+
+                                                    <!-- <button title="Rearrange" class="row-btns">
+                                                            <span class="exchange icon2"></span>
+                                                        </button>-->
+                                                    <button title="Copy" class="row-btns">
+                                                        <span class="copy icon2" (click)="copyProperty(i)"></span>
+                                                    </button>
+                                                    <button title="Delete" class="row-btns" mwlConfirmationPopover popoverTitle="delete" placement="left" (confirm)="deleteProperty(singleProp.idEle,i)"
+                                                        [popoverTitle]="popoverTitle" [popoverMessage]="popoverDeleteMessage">
+                                                        <span class="trash icon2" title="Delete"></span>
+                                                    </button>
+
+
+                                                </td>
+                                            </tr>
+                                            <tr class="referance-dropdown" style="display:none" id="referance_{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classAttributeCnfg'][i]['attributeName']}}">
+
+                                                <td colspan="2">
+                                                    <div class="arrow-div">
+                                                        <div class="v-line"></div>
+                                                        <div class="h-line"></div>
+                                                    </div>
+                                                </td>
+
+
+                                                <td class="text-left" width="15%">
+                                                    <div class="float-left ref-input">
+                                                        <label>Type</label>
+                                                        <input type="text" value='{{singleProp.referenceType}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"][i]["referenceType"]'
+                                                            class="form-control form-control-sm">
+                                                    </div>
+                                                </td>
+                                                <td class="text-left" width="15%">
+                                                    <div class="float-left ref-input">
+                                                        <label>Key</label>
+                                                        <input type="text" value='{{singleProp.referenceKey}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"][i]["referenceKey"]'
+                                                            class="form-control form-control-sm">
+                                                    </div>
+                                                </td>
+                                                <td class="text-left" width="15%">
+                                                    <div class="float-left ref-input">
+                                                        <label>Value</label>
+                                                        <input type="text" value='{{singleProp.referenceValue}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"][i]["referenceValue"]'
+                                                            class="form-control form-control-sm">
+                                                    </div>
+                                                </td>
+                                                <td colspan="2" class="text-right" width="">
+                                                    <button class="row-btns" mwlConfirmationPopover popoverTitle="ClearText" placement="left" (confirm)="referanceClose(this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classAttributeCnfg'][i]['attributeName'],singleProp)"
+                                                    [popoverTitle]="popoverTitle" [popoverMessage]="popoverClearMessage" >
+                                                        <span class="trash icon2" title="Clear Text"></span>
+                                                    </button>
+                                                </td>
+
+
+                                            </tr>
+                                            <tr class="referance-dropdown" style="display:none" id="join_{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classAttributeCnfg'][i]['attributeName']}}">
+                                                <td colspan="2">
+                                                    <div class="arrow-div">
+                                                        <div class="v-line"></div>
+                                                        <div class="h-line"></div>
+                                                    </div> 
+                                                </td>
+                                                <td class="text-left" width="15%">
+                                                    <div class="float-left ref-input">
+                                                        <label>DB Join Table</label>
+                                                        <input type="text" value='{{singleProp.dbJoinTable}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"][i]["dbJoinTable"]'
+                                                            class="form-control form-control-sm">
+                                                    </div>
+                                                </td>
+                                                <td class="text-left" width="15%">
+                                                    <div class="float-left ref-input">
+                                                        <label>DB Join Where</label>
+                                                        <input type="text" value='{{singleProp.dbJoinWhere}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"][i]["dbJoinWhere"]'
+                                                            class="form-control form-control-sm">
+                                                    </div>
+                                                </td>
+                                                <td colspan="3" class="text-right" width="10%" >
+                                                    <button class="row-btns"  mwlConfirmationPopover popoverTitle="ClearText" placement="left" (confirm)="joinClose(this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classAttributeCnfg'][i]['attributeName'],singleProp)"
+                                                    [popoverTitle]="popoverTitle" [popoverMessage]="popoverClearMessage">
+                                                        <span class="trash icon2" title="Clear Text"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+
+
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                    <ng-template #singleObjectBlock>
+                        <tr class="normal-row">
+                            <td>
+                                <input type="text" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["attributeName"]}}'
+                                    [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["attributeName"]'
+                                    class="form-control" placeholder="0">
+                            </td>
+                            <!-- <td>
+                                <input type="text" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["isKey"]}}'
+                                    [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["isKey"]'
+                                    class="form-control" placeholder="0">
+                            </td> -->
+                            
+                            <td width="5%" >
+                                <input type="checkbox" id="checkbox_" class="form-control" (click)='convertToString(-1)'>
+                            </td>
+                            
+                            <td>
+                                <input type="text" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["dataType"]}}'
+                                    [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["dataType"]'
+                                    class="form-control" placeholder="0">
+                            </td>
+                            <td>
+                                <input type="text" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["referenceType"]}}'
+                                    [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["referenceType"]'
+                                    class="form-control" placeholder="0">
+                            </td>
+                            <td>
+                                <input type="text" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["referenceKey"]}}'
+                                    [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["referenceKey"]'
+                                    class="form-control" placeholder="0">
+                            </td>
+                            <td>
+                                <input type="text" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["referenceValue"]}}'
+                                    [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["referenceValue"]'
+                                    class="form-control" placeholder="0">
+                            </td>
+                            <td>
+                                <input type="text" value='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["dbMappingType"]'
+                                    [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["dbMappingType"]'
+                                    class="form-control" placeholder="0">
+                            </td>
+                            <td>
+                                <input type="text" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["dbJoinTable"]}}'
+                                    [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["dbJoinTable"]'
+                                    class="form-control" placeholder="0">
+                            </td>
+                            <td>
+                                <input type="text" value='{{singleProp.dbSqlSyntax}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["dbSqlSyntax"]'
+                                    class="form-control" placeholder="0">
+                            </td>
+                            <td>
+                                <input type="text" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["dbJoinWhere"]}}'
+                                    [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["dbJoinWhere"]'
+                                    class="form-control" placeholder="0">
+                            </td>
+
+                            <td class="text-left" width="26%">
+                                <button type="button" class="btn btn-secondary" (click)="openReference(this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classAttributeCnfg']['attributeName'])">Reference</button>
+                                <button type="button" class="btn btn-secondary" (click)="openJoin(this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classAttributeCnfg']['attributeName'])">Join</button>
+                                <button type="button" class="btn btn-secondary" (click)="openProperties(this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classAttributeCnfg']['attributeName'])">Properties</button>
+
+                            </td>
+                            <td class="text-right">
+                                <!-- <button title="Rearrange" class="row-btns">
+                                    <span class="exchange icon2"></span>
+                                </button> -->
+                                <button title="Copy" class="row-btns">
+                                    <span class="copy icon2" (click)="copySIngleProperty(0)"></span>
+                                </button>
+                                <button title="Delete" class="row-btns" mwlConfirmationPopover popoverTitle="delete" placement="left" (confirm)="deleteSingleProperty()"
+                                    [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage">
+                                    <span class="trash icon2" title="Delete"></span>
+                                </button>
+
+
+                            </td>
+
+                        </tr>
+                        <tr class="referance-dropdown" style="display:none" id="referance_{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classAttributeCnfg'][i]['attributeName']}}">
+
+
+                            <td colspan="5">
+
+                            </td>
+
+
+                            <td class="text-left" width="26%">
+                                <div class="float-left ref-input">
+                                    <label>Type</label>
+                                    <input type="text" value='{{singleProp.referenceType}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["referenceType"]'
+                                        class="form-control form-control-sm">
+                                </div>
+                                <div class="float-left ref-input">
+                                    <label>Key</label>
+                                    <input type="text" value='{{singleProp.referenceKey}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["referenceKey"]'
+                                        class="form-control form-control-sm">
+                                </div>
+                                <div class="float-left ref-input">
+                                    <label>Value</label>
+                                    <input type="text" value='{{singleProp.referenceValue}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["referenceValue"]'
+                                        class="form-control form-control-sm">
+                                </div>
+                            </td>
+                            <td class="text-right" width="10%">
+                                <button class="row-btns" (click)="referanceClose(this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classAttributeCnfg']['attributeName'])">
+                                    <span class="trash icon2"></span>
+                                </button>
+                            </td>
+
+
+                        </tr>
+                        <tr class="referance-dropdown" style="display:none" id="join_{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classAttributeCnfg']['attributeName']}}">
+
+
+                            <td colspan="5">
+
+                            </td>
+
+
+                            <td class="text-left" width="26%">
+                                <div class="float-left ref-input">
+                                    <label>DB Join Table</label>
+                                    <input type="text" value='{{singleProp.dbJoinTable}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["dbJoinTable"]'
+                                        class="form-control form-control-sm">
+                                </div>
+                                <div class="float-left ref-input">
+                                    <label>DB Join Where</label>
+                                    <input type="text" value='{{singleProp.dbJoinWhere}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classAttributeCnfg"]["dbJoinWhere"]'
+                                        class="form-control form-control-sm">
+                                </div>
+
+                            </td>
+                            <td class="text-right" width="10%">
+                                <button class="row-btns" (click)="joinClose(this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classAttributeCnfg']['attributeName'])">
+                                    <span class="trash icon2"></span>
+                                </button>
+                            </td>
+
+
+                        </tr>
+                    </ng-template>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="attribute-properties-popup" class="popup">
+    <div class="popupBg">
+    </div>
+    <!--popupBg end-->
+    <div class="properties-popup">
+        <ng-container *ngFor='let singleProp of utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classAttributeRef"]; let i = index'>
+            <div style="display: none" class="top-bar" id="topbar_{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classAttributeRef'][i]['attributeName']}}">
+                <span class="title">{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classAttributeRef'][i]['attributeName']}}
+                    Properties
+                </span>
+                <a (click)="popupClose(this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classAttributeRef'][i]['attributeName'])"
+                    class="close-btn float-right">
+                    <img src="assets/images/close-grey.png">
+                </a>
+                <div class="clearfix"></div>
+            </div>
+            <div style="display: none" class="container-fluid properties-content medium-small-height" id="popupProp_{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classAttributeRef'][i]['attributeName']}}">
+                <div class="class-div full-height">
+                    <div class="full-height">
+                        <div class="float-right margin-bottom-12">
+                            <button type="button" class="btn btn-light" (click)="addSubProperty(i)">Add Row</button>
+                            <!-- <button type="button" class="btn btn-light">Delete All</button> -->
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="overflow-auto medium-large-height">
+                            <table class="table table-sm">
+                                <tbody [dragula]='"popup-bag-task2"'>
+                                    <ng-container *ngFor='let insideProp of utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classAttributeRef"][i]["classAttrPropertyCnfg"]; let j = index'>
+                                        <!-- <tr id="{{i}}" *ngFor='let insideProp of utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classAttributeRef"][i]["classAttrPropertyCnfg"]; let j = index'> -->
+                                        <tr id="{{j}}">
+                                            <td width="20%" *ngIf="insideProp.propertyCode!=undefined && insideProp.propertyCode!=null">
+                                                <input type="text" value='{{insideProp.propertyCode}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classAttributeRef"][i]["classAttrPropertyCnfg"][j]["propertyCode"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td width="20%" *ngIf="insideProp.propertyType!=undefined && insideProp.propertyType!=null">
+                                                <input type="text" value='{{insideProp.propertyType}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classAttributeRef"][i]["classAttrPropertyCnfg"][j]["propertyType"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td width="20%" *ngIf="insideProp.propertyValue!=undefined && insideProp.propertyValue!=null">
+                                                <input type="text" value='{{insideProp.propertyValue}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classAttributeRef"][i]["classAttrPropertyCnfg"][j]["propertyValue"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td width="20%" *ngIf="insideProp.presentationCntx!=undefined && insideProp.presentationCntx!=null">
+                                                <input type="text" value='{{insideProp.presentationCntx}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classAttributeRef"][i]["classAttrPropertyCnfg"][j]["presentationCntx"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td class="text-right" width="20%">
+                                                <!-- <button title="Rearrange" class="row-btns">
+                                                <span class="exchange icon2"></span>
+                                            </button> -->
+                                                <button title="Copy" class="row-btns">
+                                                    <span class="copy icon2" (click)="copySubProperty(i,j)"></span>
+                                                </button>
+                                                <button title="Delete" class="row-btns" mwlConfirmationPopover popoverTitle="delete" placement="left" (confirm)="deleteSubProperty(i,j)"
+                                                    [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage">
+                                                    <span class="trash icon2" title="Delete"></span>
+                                                </button>
+
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: none" class="bottom-div" id="bottom_{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classAttributeRef'][i]['attributeName']}}">
+                <button class="btn btn-success float-right margin-left-10" (click)="popupClose(this.utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classAttributeRef'][i]['attributeName'])">
+                    <span class="fa fa-save"></span> Save & Close</button>
+                <!-- <button class="btn btn-secondary float-right">Cancel</button> -->
+                <div class="clearfix"></div>
+            </div>
+        </ng-container>
+    </div>
+
+    <!--selectRoute end-->
+</div>
+
+<div id="all-attribute-properties-popup" class="popup">
+    <div class="popupBg">
+    </div>
+    <!--popupBg end-->
+    <div class="properties-popup">
+        <div class="top-bar">
+            <a (click)="allPopupClose()" class="close-btn float-right">
+                <img src="assets/images/close-grey.png">
+            </a>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="overflow-auto properties-content medium-small-height">
+            <ng-container *ngFor='let singleProp of utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classAttributeRef"]; let i = index'>
+                <div class="container-fluid" id="popupProp_{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classAttributeRef'][i]['attributeName']}}">
+
+                    <div class="class-div full-height">
+
+                        <div class="full-height">
+                            <span class="title">{{utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classAttributeRef'][i]['attributeName']}}
+                                Properties
+                            </span>
+                            <div class="float-right margin-bottom-12">
+                                <button type="button" class="btn btn-light" (click)="addSubProperty(i)">Add Row</button>
+                                <!-- <button type="button" class="btn btn-light">Delete All</button> -->
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="medium-large-height">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr *ngFor='let insideProp of utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classAttributeRef"][i]["classAttrPropertyCnfg"]; let j = index'>
+                                            <td width="20%" *ngIf="insideProp.propertyCode!=undefined && insideProp.propertyCode!=null">
+                                                <input type="text" value='{{insideProp.propertyCode}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classAttributeRef"][i]["classAttrPropertyCnfg"][j]["propertyCode"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td width="20%" *ngIf="insideProp.propertyType!=undefined && insideProp.propertyType!=null">
+                                                <input type="text" value='{{insideProp.propertyType}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classAttributeRef"][i]["classAttrPropertyCnfg"][j]["propertyType"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td width="20%" *ngIf="insideProp.propertyValue!=undefined && insideProp.propertyValue!=null">
+                                                <input type="text" value='{{insideProp.propertyValue}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classAttributeRef"][i]["classAttrPropertyCnfg"][j]["propertyValue"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td width="20%" *ngIf="insideProp.presentationCntx!=undefined && insideProp.presentationCntx!=null">
+                                                <input type="text" value='{{insideProp.presentationCntx}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classAttributeRef"][i]["classAttrPropertyCnfg"][j]["presentationCntx"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td class="text-right" width="20%">
+                                                <!-- <button title="Rearrange" class="row-btns">
+                                                    <span class="exchange icon2"></span>
+                                                </button> -->
+                                                <button title="Copy" class="row-btns">
+                                                    <span class="copy icon2" (click)="copySubProperty(i,j)"></span>
+                                                </button>
+                                                <button title="Delete" class="row-btns" mwlConfirmationPopover popoverTitle="delete" placement="left" (confirm)="deleteSubProperty(i,j)"
+                                                    [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage">
+                                                    <span class="trash icon2" title="Delete"></span>
+                                                </button>
+
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <div style="display: block" class="bottom-div">
+            <button class="btn btn-success float-right margin-left-10" (click)="allPopupClose()">
+                <span class="fa fa-save"></span> Save & Close</button>
+            <!-- <button class="btn btn-secondary float-right">Cancel</button> -->
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!--selectRoute end-->
+</div>

@@ -1,0 +1,18 @@
+<header>
+    <div class="container-fluid">
+        <div class="inner-logo float-left">
+            <img class="float-left" src="assets/images/logo-white.png">
+            <span>Class Editor</span>
+        </div>
+
+        <div *ngIf="!this.utilityService.closeButtonDisableFlag" class="float-right">
+            <!-- <a class="settings" ><span class="fa fa-cog"></span></a> -->
+            
+            <a class="closeall" title="Close All Tabs" mwlConfirmationPopover (confirm)="goBack()" placement="left" popoverTitle="Confirmation" popoverMessage="Are you sure you want to close all open files?"></a>
+             <!-- <button title="Delete" class="row-btns" mwlConfirmationPopover popoverTitle="delete" placement="left"  (confirm)="deleteProperty(singleProp.idEle)"  [popoverTitle]="popoverTitle"
+                                    [popoverMessage]="popoverMessage">
+                                    <span class="trash icon2"></span>
+                                  </button>  -->
+        </div>
+    </div>
+</header>

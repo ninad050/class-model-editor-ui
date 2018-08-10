@@ -1,0 +1,86 @@
+<div  [hidden]="mainComponent">
+<content>
+
+    <div class="container-fluid main-content full-height">
+        <div class="row full-height justify-content-md-center">
+            <div class="extending-class">
+                <div class="section-block full-height">
+                    <span class="section-header">Open Class</span>
+                    <div class="select-module load-class-model full-height">
+                        <div class="margin-bottom-12 medium-height">
+                            <ul class="">
+                                <li class="select-file">
+                                    <label>Select File</label>
+                                    <div class="input-group image-preview">
+                                        <input type="text"  class="form-control image-preview-filename" [(ngModel)]="fileName"/>
+                                        <!-- don't give a name === doesn't send on POST/GET -->
+                                        <span class="input-group-btn">
+                                            <!-- image-preview-input -->
+                                            <span (click)="selectXMLFile()" class="btn image-preview-input btn-success">
+                                                <span class="image-preview-input-title icon browse">Browse</span>
+                                                <!-- rename it -->
+                                            </span>
+                                        </span>
+                                    </div>
+                                </li>
+                                <!--Below tag is validation message for xml-->
+                                <span>
+                                    <div id="errorMessage" class="{{classname}}">{{errorMessage}}</div>
+                                </span>
+
+                                <!--<textarea id="checking" cols="50" rows="7"></textarea>-->
+                                <li>
+                                    <button class="btn grey-btn float-right" disabled>
+                                        <span class="icon clipboard"></span>Extend</button>
+                                    <button id="browseEdit" class="btn grey-btn float-right btn-margin-right"  (click)="gotoClassModeldashboar(true)" [disabled]="!actionFlag">
+                                        <span class="icon pencil"></span>Edit</button>
+                                    <button id="browseView" class="btn grey-btn float-right btn-margin-right" (click)="gotoClassModeldashboar(false)" [disabled]="!actionFlag">
+                                        <span class="icon eye"></span>View</button>
+                                    <div class="clearfix"></div>
+                                </li>
+                            </ul>
+
+                            <!-- <hr> -->
+                           
+                            <span class="section-header2">Recent Files</span>
+
+                            <ul class="recent-files" *ngIf="utilityService.classObjectList!=undefined && utilityService.classObjectList!=null && utilityService.classObjectList.length>0;else notFoundBlock">
+
+                                <li class="file-name" *ngFor="let singleFile of utilityService.classObjectList; let i=index">
+                                    <a id="{{singleFile.id}}" (click)="recentFileSelect(singleFile.id,$event)">{{ trimFileName(singleFile.id)}}</a>
+                                </li>
+                                <li class="last-li">
+                                    <button class="btn grey-btn float-right btn-margin-right" disabled>
+                                        <span class="icon clipboard"></span>Extend</button>
+                                    <button id="recentEdit" class="btn grey-btn float-right btn-margin-right" [disabled]="!recentFileFlag" (click)="gotoClassModeldashboar(true)">
+                                        <span  class="icon pencil"></span>Edit</button>
+                                    <button id="recentView" class="btn grey-btn float-right btn-margin-right" [disabled]="!recentFileFlag" (click)="gotoClassModeldashboar(false)">
+                                        <span class="icon eye"></span>View</button>
+                                </li>
+                               
+                            </ul>
+                            
+                            <ng-template #notFoundBlock>
+                                <ul class="recent-files full-height">
+                                    <li class="file-name">
+                                        <a>
+                                            Recent files are not available currently
+                                        </a>
+                                    </li>
+                                </ul>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--col-md-4-->
+        </div>
+        <!--row-->
+    </div>
+    <!--container-fluid-->
+
+</content>
+</div>
+<div  [hidden]="fileComponent"  >
+    <app-file-select></app-file-select>
+</div>

@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="class-div">
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th width="20%" scope="col">Attribute Name</th>
+            <th width="68%" scope="col">Property Info</th>
+            <th width="12%" class="text-right" scope="col">
+              <button type="button" class="btn btn-light" (click)="addProperty()">Add Row</button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let singleProp of utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-attribute-ref"]; let i = index'>
+
+
+            <td *ngIf="singleProp.attribute-name!=undefined && singleProp.attribute-name!=null">
+              <input type="text" value='{{singleProp.attribute-name}}' [(ngModel)]='utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-attribute-ref"][i]["attribute-name"]'
+                class="form-control"   >
+            </td>
+
+              <td>
+                <table class="table table-sm">
+                  <thead class="thead-light">
+                    <tr>
+
+                      <th width="15%" scope="col">Property Code</th>
+                      <th width="15%" scope="col">Property Type</th>
+                      <th width="15%" scope="col">Property Value</th>
+                      <th width="15%" scope="col">Presentaion Context</th>
+                      <th width="12%" class="text-right" scope="col">
+                        <button type="button" class="btn btn-light btn-sm" (click)="addSubProperty(i)">Add Row</button>
+                      </th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor='let insideProp of utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-attribute-ref"][i]["class-attr-property-cnfg"]; let j = index'>
+                      <td *ngIf="insideProp.property-code!=undefined && singleProp.property-code!=null">
+                        <input type="text" value='{{singleProp.property-code}}' [(ngModel)]='utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-attribute-ref"][i]["class-attr-property-cnfg"][j]["property-code"]'
+                          class="form-control form-control-sm"   >
+                      </td>
+                      <td *ngIf="insideProp.property-type!=undefined && singleProp.property-type!=null">
+                        <input type="text" value='{{singleProp.property-type}}' [(ngModel)]='utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-attribute-ref"][i]["class-attr-property-cnfg"][j]["property-type"]'
+                          class="form-control form-control-sm"   >
+                      </td>
+                      <td *ngIf="insideProp.property-value!=undefined && singleProp.property-value!=null">
+                        <input type="text" value='{{singleProp.property-value}}' [(ngModel)]='utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-attribute-ref"][i]["class-attr-property-cnfg"][j]["property-value"]'
+                          class="form-control form-control-sm" >
+                      </td>
+                        <td *ngIf="insideProp.presentation-cntx!=undefined && singleProp.presentation-cntx!=null">
+                         <input type="text" value='{{singleProp.presentation-cntx}}' [(ngModel)]='utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-attribute-ref"][i]["class-attr-property-cnfg"][j]["presentation-cntx"]'
+                          class="form-control form-control-sm"   >
+                      </td>
+
+                      <td class="text-right">
+                        <!-- <button title="Rearrange" class="row-btns">
+                        <span class="exchange icon2"></span>
+                        </button>-->
+                        <button title="Copy" class="row-btns"> 
+                        <span class="copy icon2" (click)="copySubProperty(i,j)"></span>
+                        </button>
+                        <button title="Delete" class="row-btns">
+                        <span class="trash icon2" (click)="deleteSubProperty(i,j)"></span>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+
+                </table>
+            </td>
+
+
+            <td class="text-right">
+              <!-- <button title="Rearrange" class="row-btns">
+              <span class="exchange icon2"></span>
+              </button>-->
+              <button title="Copy" class="row-btns"> 
+              <span class="copy icon2"   (click)="copyProperty(i)"></span>
+              </button>
+              <button title="Delete" class="row-btns">
+              <span class="trash icon2" (click)="deleteProperty(singleProp.idEle,i)"></span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

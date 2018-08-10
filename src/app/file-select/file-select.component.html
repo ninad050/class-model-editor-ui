@@ -1,0 +1,42 @@
+
+    
+      <content>
+          <div class="container-fluid main-content full-height">
+              <div class="row full-height">
+  
+                  <div class="col-md-6">
+                      <div class="section-block full-height">
+                          <span class="section-header">Select Module</span>
+                          <div class="select-module load-class-model full-height">
+                              <div class="search-class">
+                                  <label>Search</label>
+                                  <input type="search" placeholder="Search" class="form-control margin-bottom-12">
+                              </div>
+                              <ul class="recent-files margin-bottom-12 small-height">
+                                  <li 
+                                  *ngFor="let file of Files"
+                                  class="file-name"
+                                  (click)="selectXMLFile(file.content)">
+                                      <a>{{file.name}}</a>
+                                  </li>
+                              </ul>
+                            <span (click)="redirect()" class="btn btn-success float-right">
+                                <span class="clearfix">Select Class</span>
+                                <!-- rename it -->
+                            </span>
+                              <!-- <div>
+                                  <a href="/" class="btn btn-success float-right">Select Class</a>
+                                  <div class="clearfix"></div>
+                              </div> -->
+                          </div>
+                      </div>
+                  </div>
+                  <!--col-md-4-->
+              </div>
+              <!--row-->
+          </div>
+          <!--container-fluid-->
+      </content>
+  
+     
+ 

@@ -1,0 +1,181 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="class-div">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th width="15%" scope="col">From Class Name</th>
+                        <th width="15%" scope="col">Role Name</th>
+                        <th width="58%" scope="col">Property Info</th>
+                        <th width="12%" class="text-right" scope="col">
+                            <button type="button" class="btn btn-light" (click)="addProperty()">Add Row</button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="checkInstanceOfArray(utilityService.currentClassObject['class-xml']['class-cnfg']['owner-cntx']['class-relation-ref']);else singleObjectBlock">
+
+
+
+
+                        <tr *ngFor='let singleProp of utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-relation-ref"]; let i = index'>
+
+
+                            <td *ngIf="singleProp.from-class-name!=undefined && singleProp.from-class-name!=null">
+                                <input type="text" value='{{singleProp.from-class-name}}' [(ngModel)]='utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-relation-ref"][i]["from-class-name"]'
+                                    class="form-control">
+                            </td>
+
+                            <td *ngIf="singleProp.role-name!=undefined && singleProp.role-name!=null">
+                                <input type="text" value='{{singleProp.role-name}}' [(ngModel)]='utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-relation-ref"][i]["role-name"]'
+                                    class="form-control">
+                            </td>
+                            <td>
+                                <table class="table table-sm">
+                                    <thead class="thead-light">
+                                        <tr>
+
+                                            <th width="15%" scope="col">Property Code</th>
+                                            <th width="15%" scope="col">Property Type</th>
+                                            <th width="15%" scope="col">Property Value</th>
+                                            <th width="15%" scope="col">Presentation Context</th>
+                                            <th width="12%" class="text-right" scope="col">
+                                                <button type="button" class="btn btn-light btn-sm" (click)="addSubProperty(i)">Add Row</button>
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor='let insideProp of utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-relation-ref"][i]["class-rel-property-cnfg"]; let j = index'>
+                                            <td *ngIf="insideProp.property-code!=undefined && singleProp.property-code!=null">
+                                                <input type="text" value='{{singleProp.property-code}}' [(ngModel)]='utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-relation-ref"][i]["class-rel-property-cnfg"][j]["property-code"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td *ngIf="insideProp.property-type!=undefined && singleProp.property-type!=null">
+                                                <input type="text" value='{{singleProp.property-type}}' [(ngModel)]='utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-relation-ref"][i]["class-rel-property-cnfg"][j]["property-type"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td *ngIf="insideProp.property-value!=undefined && singleProp.property-value!=null">
+                                                <input type="text" value='{{singleProp.property-value}}' [(ngModel)]='utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-relation-ref"][i]["class-rel-property-cnfg"][j]["property-value"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td *ngIf="insideProp.presentation-cntx!=undefined && singleProp.presentation-cntx!=null">
+                                                <input type="text" value='{{singleProp.presentation-cntx}}' [(ngModel)]='utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-relation-ref"][i]["class-rel-property-cnfg"][j]["presentation-cntx"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+
+                                            <td class="text-right">
+                                                <!-- <button title="Rearrange" class="row-btns">
+                                                    <span class="exchange icon2"></span>
+                                                </button> -->
+                                                <button title="Copy" class="row-btns">
+                                                    <span class="copy icon2" (click)="copySubProperty(i,j)"></span>
+                                                </button>
+                                                <button title="Delete" class="row-btns">
+                                                    <span class="trash icon2" (click)="deleteSubProperty(i,j)"></span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </td>
+
+
+
+                            <td class="text-right">
+                                <!-- <button title="Rearrange" class="row-btns">
+                                    <span class="exchange icon2"></span>
+                                </button> -->
+                                <button title="Copy" class="row-btns">
+                                    <span class="copy icon2" (click)="copyProperty(i)"></span>
+                                </button>
+                                <button title="Delete" class="row-btns">
+                                    <span class="trash icon2" (click)="deleteProperty(i)"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-template #singleObjectBlock>
+                        <ng-container *ngIf='utilityService.currentClassObject["class-xml"]["class-cnfg"]["app-space-cntx"][1]["class-relation-cnfg"]'!=undefined>
+                                              
+                        <tr>
+                            <td>
+                                <input type="text" value='{{utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-relation-ref"]["from-class-name"]}}'
+                                    [(ngModel)]='utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-relation-ref"]["from-class-name"]'
+                                    class="form-control">
+                            </td>
+                            <td>
+                                <input type="text" value='{{utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-relation-ref"]["role-name"]}}'
+                                    [(ngModel)]='utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-relation-ref"]["role-name"]'
+                                    class="form-control">
+                            </td>
+                            <td>
+                                <table class="table table-sm">
+                                    <thead class="thead-light">
+                                        <tr>
+
+                                            <th width="15%" scope="col">Property Code</th>
+                                            <th width="15%" scope="col">Property Type</th>
+                                            <th width="15%" scope="col">Property Value</th>
+                                            <th width="15%" scope="col">Presentation Context</th>
+                                            <th width="12%" class="text-right" scope="col">
+                                                <button type="button" class="btn btn-light btn-sm" (click)="addSubProperty(0)">Add Row</button>
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor='let insideProp of utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-relation-ref"]["class-rel-property-cnfg"]; let j = index'>
+                                            <td *ngIf="insideProp.property-code!=undefined && insideProp.property-code!=null">
+                                                <input type="text" value='{{insideProp.property-code}}' [(ngModel)]='utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-relation-ref"]["class-rel-property-cnfg"][j]["property-code"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td *ngIf="insideProp.property-type!=undefined && insideProp.property-type!=null">
+                                                <input type="text" value='{{insideProp.property-type}}' [(ngModel)]='utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-relation-ref"]["class-rel-property-cnfg"][j]["property-type"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td *ngIf="insideProp.property-value!=undefined && insideProp.property-value!=null">
+                                                <input type="text" value='{{insideProp.property-value}}' [(ngModel)]='utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-relation-ref"]["class-rel-property-cnfg"][j]["property-value"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+                                            <td *ngIf="insideProp.presentation-cntx!=undefined && insideProp.presentation-cntx!=null">
+                                                <input type="text" value='{{insideProp.presentation-cntx}}' [(ngModel)]='utilityService.currentClassObject["class-xml"]["class-cnfg"]["owner-cntx"]["class-relation-ref"]["class-rel-property-cnfg"][j]["presentation-cntx"]'
+                                                    class="form-control form-control-sm">
+                                            </td>
+
+                                            <td class="text-right">
+                                                <!-- <button title="Rearrange" class="row-btns">
+                                                    <span class="exchange icon2"></span>
+                                                </button> -->
+                                                <button title="Copy" class="row-btns">
+                                                    <span class="copy icon2" (click)="copySingleSubProperty(i,j)"></span>
+                                                </button>
+                                                <button title="Delete" class="row-btns">
+                                                    <span class="trash icon2" (click)="deleteSingleSubProperty(i,j)"></span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </td>
+                            <td class="text-right">
+                                <!-- <button title="Rearrange" class="row-btns">
+                                    <span class="exchange icon2"></span>
+                                </button> -->
+                                <button title="Copy" class="row-btns">
+                                    <span class="copy icon2" (click)="copySingleSubProperty(i)"></span>
+                                </button>
+                                <button title="Delete" class="row-btns">
+                                    <span class="trash icon2" (click)="deleteProperty(singleProp.idEle)"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        </ng-container>
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,106 @@
+<app-class-info-component></app-class-info-component>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="class-div">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th width="20%" scope="col">Property Code</th>
+                        <th width="16%" scope="col">Presentation Cntx</th>
+                        <th width="20%" scope="col">Property Type</th>
+                        <th width="20%" scope="col">Property Value</th>
+                        <th width="12%" class="text-right" scope="col">
+                            <button type="button" class="btn btn-light" (click)="addProperty('ClassModel')">Add Row</button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody [dragula]='"bag-task1"'>
+                    <ng-container *ngIf="utilityService.currentClassObject!=undefined && checkInstanceOfArray(utilityService.currentClassObject['classCnfgOrClassRef'][0]['ownerCntx'][0]['classPropertyCnfg']);else singleObjectBlock">
+
+                        <tr id="{{i}}" class="normal-row" *ngFor='let singleProp of utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classPropertyCnfg"]; let i = index'>
+
+                            <td>
+                                <input type="text" *ngIf="singleProp !=null && singleProp!=undefined && singleProp.propertyCode!=undefined && singleProp.propertyCode!=null" value='{{singleProp.propertyCode}}'
+                                    [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classPropertyCnfg"][i]["propertyCode"]'
+                                    class="form-control">
+                            </td> 
+
+                            <td>
+                                <input type="text" *ngIf="singleProp !=null && singleProp!=undefined && singleProp.presentationCntx!=undefined && singleProp.presentationCntx!=null" value='{{singleProp.presentationCntx}}'
+                                    [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classPropertyCnfg"][i]["presentationCntx"]'
+                                    class="form-control">
+                            </td>
+
+                            <td>
+                                <input type="text" *ngIf="singleProp !=null && singleProp!=undefined && singleProp.propertyType!=undefined && singleProp.propertyType!=null" value='{{singleProp.propertyType}}'
+                                    [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classPropertyCnfg"][i]["propertyType"]'
+                                    class="form-control">
+                            </td>
+
+                            <td>
+                                <input type="text" *ngIf="singleProp !=null && singleProp!=undefined && singleProp.propertyValue!=undefined && singleProp.propertyValue!=null" value='{{singleProp.propertyValue}}'
+                                    [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classPropertyCnfg"][i]["propertyValue"]'
+                                    class="form-control">
+                            </td>
+
+
+                            <td class="text-right">
+                                <!-- <button title="Rearrange" class="row-btns">
+                                    <span class="exchange icon2"></span>
+                                </button> -->
+                                <button title="Copy" class="row-btns">
+                                    <span class="copy icon2 " (click)="copyProperty(i)"></span>
+                                </button>
+                  
+                                 <button title="Delete" class="row-btns" mwlConfirmationPopover popoverTitle="delete" placement="left"  (confirm)="deleteProperty(singleProp.idEle,i)"  [popoverTitle]="popoverTitle"
+                                    [popoverMessage]="popoverMessage">
+                                    <span class="trash icon2"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-template #singleObjectBlock>
+                        <ng-container *ngIf="utilityService.currentClassObject!=undefined">
+                        <tr class="normal-row">
+                            <td>
+                                <input type="text" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classPropertyCnfg"]["propertyCode"]}}'
+                                    [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classPropertyCnfg"]["propertyCode"]'
+                                    class="form-control" placeholder="0">
+                            </td>
+                            <td>
+                                <input type="text" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classPropertyCnfg"]["presentationCntx"]}}'
+                                    [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classPropertyCnfg"]["presentationCntx"]'
+                                    class="form-control" placeholder="0">
+                            </td>
+                            <td>
+                                <input type="text" value='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classPropertyCnfg"]["propertyType"]'
+                                    [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classPropertyCnfg"]["propertyType"]'
+                                    class="form-control" placeholder="0">
+                            </td>
+                            <td>
+                                <input type="text" value='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classPropertyCnfg"]["propertyValue"]'
+                                    [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["classPropertyCnfg"]["propertyValue"]'
+                                    class="form-control" placeholder="0">
+                            </td>
+                            <td class="text-right">
+                                <!-- <button title="Rearrange" class="row-btns">
+                                    <span class="exchange icon2"></span>
+                                </button> -->
+                                <button title="Copy" class="row-btns">
+                                    <span class="copy icon2" (click)="copySIngleProperty(0)"></span>
+                                </button>
+                                  <button title="Delete" class="row-btns" mwlConfirmationPopover popoverTitle="delete" placement="left"  (confirm)="deleteProperty(singleProp.idEle)"  [popoverTitle]="popoverTitle"
+                                    [popoverMessage]="popoverMessage">
+                                    <span class="trash icon2"></span>
+                                  </button>  
+                              
+                            </td>
+                        </tr>
+                        </ng-container>
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

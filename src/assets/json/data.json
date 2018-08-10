@@ -1,0 +1,193 @@
+{
+"id":"xml",
+"tab":[
+{
+"id":"class",
+"tab_name":"Class",
+"tab_details":[
+{
+"label":"Class Name",
+"value":"FCST_CURVE_SEGMENT",
+"field_type":"input"
+},
+{
+"label":"App Space Cntx",
+"value":"EC_PROD",
+"field_type":"input"
+},
+{
+"label":"Class Type",
+"value":"DATA",
+"field_type":"input"
+},
+{
+"label":"Time Scope Code",
+"value":"",
+"field_type":"input"
+},
+{
+"label":"Owner Class Name",
+"value":"",
+"field_type":"input"
+}
+,
+{
+"label":"Db Object Name",
+"value":"FCST_PROD_CURVES_SEGMENT",
+"field_type":"input"
+},
+{
+"label":"Db Object Owner",
+"value":"",
+"field_type":"input"
+},
+
+{
+"label":"Db Object Type",
+"value":"TABLE",
+"field_type":"input"
+},
+{
+"label":"Db Object Attribute",
+"value":"",
+"field_type":"input"
+},
+{
+"label":"Db Where Condition",
+"value":"",
+"field_type":"input"
+}
+
+],
+
+"grid_view":{
+"column":[
+{
+"label":"Property Code"
+},
+{
+"label":"owner Cntx"
+},
+{
+"label":"Presentation Cntx"
+},
+{
+"label":"Property Type"
+},
+{
+"label":"Property Value"
+}
+],
+"rows":[
+{
+"values":[
+{
+"field_type":"Dropdown",
+"value":"Description"
+},
+{
+"field_type":"input",
+"value":"0"
+},{
+"field_type":"input",
+"value":"/EC"
+},{
+"field_type":"input",
+"value":"Application"
+},{
+"field_type":"input",
+"value":"Forecast Curve Segment"
+}
+]
+},
+{
+"values":[
+{
+"field_type":"Dropdown",
+"value":"JOURNAL_RULE_DB_SYNTAX"
+},
+{
+"field_type":"input",
+"value":"0"
+},
+{
+"field_type":"input",
+"value":"/"
+},
+{
+"field_type":"input",
+"value":"VIEWLAYER"
+},
+{
+"field_type":"input",
+"value":"TRUE"
+}
+
+]
+}
+]
+}
+},
+{
+"id":"",
+"tab_name":"",
+"tab_details":[
+{
+"label":"",
+"value":"",
+"field_type":""
+},
+{
+"label":"",
+"value":"",
+"field_type":""
+}
+],
+"grid_view":{
+"column":[
+{
+"label":"Property Code"
+},
+{
+"label":"owner Cntx"
+},
+{
+"label":"Presentation Cntx"
+},
+{
+"label":"Property Type"
+},
+{
+"label":"Property Value"
+}
+],
+"rows":[
+{
+"values":[
+{
+"field_type":"",
+"value":""
+},
+{
+"field_type":"",
+"value":""
+}
+]
+},
+{
+"values":[
+{
+"field_type":"",
+"value":""
+},
+{
+"field_type":"",
+"value":""
+}
+]
+}
+]
+}
+}
+]
+}

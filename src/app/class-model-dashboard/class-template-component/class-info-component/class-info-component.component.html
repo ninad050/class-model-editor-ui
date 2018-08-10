@@ -1,0 +1,81 @@
+ <ng-container *ngIf="utilityService.currentClassObject!=undefined">
+<div class="row">
+    <div class="col-sm-6">
+        <div class="class-div">
+            <div class="row">
+               
+                <div class="col-sm-6">
+                    <label>Class Name</label>
+                    <input type="text" placeholder="FCSTCURVESEGMENT" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["className"]}}'
+                        [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["className"]' class="form-control margin-bottom-12">
+                </div>
+
+                <div class="col-sm-6">
+                    <label>Class Type</label>
+                    <input type="text" placeholder="DATA" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["classType"]}}'
+                        [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["classType"]' class="form-control margin-bottom-12">
+                </div>
+
+                <div class="col-sm-6">
+                    <label>Time Scope Code</label>
+                    <input type="text" placeholder="CODE" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["timeScopeCode"]}}'
+                        [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["timeScopeCode"]' class="form-control margin-bottom-12">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="class-div">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label>App Space Cntx</label>
+                    <input type="text" placeholder="ECPROD" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx"]}}'
+                        [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx"]' class="form-control margin-bottom-12">
+                </div>
+
+                <div class="col-sm-6">
+                    <label>Owner Class Name</label>
+                    <input type="text" placeholder="Well" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerClassName"]}}'
+                        [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerClassName"]' class="form-control margin-bottom-12">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="class-div">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label>DB Object Name</label>
+                    <input type="text" placeholder="FCSTCURVESEGMENT" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["dbObjectName"]}}'
+                        [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["dbObjectName"]' class="form-control margin-bottom-12">
+                </div>
+
+                <div class="col-sm-6">
+                    <label>DB Object Type</label>
+                    <input type="text" placeholder="FCSTCURVESEGMENT" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["dbObjectType"]}}'
+                        [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["dbObjectType"]' class="form-control margin-bottom-12">
+
+                </div>
+
+                <div class="col-sm-6">
+                    <label>DB Object Owner</label>
+                    <input type="text" placeholder="FCSTCURVESEGMENT" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["dbObjectOwner"]}}'
+                        [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["dbObjectOwner"]' class="form-control margin-bottom-12">
+                </div>
+
+                <div class="col-sm-6">
+                    <label>DB Object Attribute</label>
+                    <input type="text" placeholder="FCSTCURVESEGMENT" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["dbObjectAttribute"]}}'
+                        [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["dbObjectAttribute"]' class="form-control margin-bottom-12">
+                </div>
+
+                <div class="col-sm-6">
+                    <label>DB Where Condition</label>
+                    <textarea class="form-control margin-bottom-12" [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["dbWhereCondition"]'></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ </ng-container>

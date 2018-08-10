@@ -1,0 +1,91 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="class-div">
+            <table class="table">
+                <thead class="thead-light" id="tablehead">
+                    <tr>
+                        <th width="30%" scope="col">Parent Class</th>
+                        <th width="30%" scope="col">Dependency Type</th>
+                        <th width="40%" class="text-right" scope="col">
+                            <button type="button" class="btn btn-light" (click)="addProperty()">Add Row</button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody [dragula]='"bag-task3"'>
+                    <ng-container *ngIf="isemptyArry(utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classDependencyCnfg']) ;else tbodyBlock">
+                        <tr>
+                            <td colspan="3">
+                                Class Dependencies are not available for current class
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-template #tbodyBlock>
+                        <ng-container *ngIf="utilityService.currentClassObject!=undefined && checkInstanceOfArray(utilityService.currentClassObject['classCnfgOrClassRef'][0]['appSpaceCntx_0020'][0]['classDependencyCnfg']);else singleObjectBlock">
+
+                            <tr id="{{i}}" class="normal-row" *ngFor='let singleProp of utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classDependencyCnfg"]; let i = index'>
+
+                                <td>
+                                    <input type="text" *ngIf="singleProp !=null && singleProp!=undefined && singleProp.parentClass!=undefined && singleProp.parentClass!=null"
+                                        value='{{singleProp.parentClass}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classDependencyCnfg"][i]["parentClass"]'
+                                        class="form-control">
+                                </td>
+
+                                <td>
+                                    <input type="text" *ngIf="singleProp !=null && singleProp!=undefined && singleProp.dependencyType!=undefined && singleProp.dependencyType!=null"
+                                        value='{{singleProp.dependencyType}}' [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classDependencyCnfg"][i]["dependencyType"]'
+                                        class="form-control">
+                                </td>
+
+                                <td class="text-right">
+                                    <!-- <button title="Rearrange" class="row-btns">
+                                                            <span class="exchange icon2"></span>
+                                                        </button> -->
+                                    <button title="Copy" class="row-btns">
+                                                            <span class="copy icon2 " (click)="copyProperty(i)"></span>
+                                                        </button>
+
+                                    <button title="Delete" class="row-btns" mwlConfirmationPopover popoverTitle="delete" placement="left" (confirm)="deleteProperty(singleProp.idEle,i)"
+                                        [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage">
+                                    <span class="trash icon2"></span>
+                                  </button>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <ng-template #singleObjectBlock>
+                            <ng-container *ngIf='utilityService.currentClassObject!=undefined && utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classDependencyCnfg"]!=undefined;else noContent'>
+                                <tr class="normal-row">
+                                    <td>
+                                        <input type="text" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classDependencyCnfg"]["parentClass"]}}'
+                                            [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classDependencyCnfg"]["parentClass"]'
+                                            class="form-control">
+                                    </td>
+                                    <td>
+                                        <input type="text" value='{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classDependencyCnfg"]["dependencyType"]}}'
+                                            [(ngModel)]='utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx_0020"][0]["classDependencyCnfg"]["dependencyType"]'
+                                            class="form-control">
+                                    </td>
+                                    <td class="text-right">
+                                        <!-- <button title="Rearrange" class="row-btns">
+                                                            <span class="exchange icon2"></span>
+                                                        </button> -->
+                                        <button title="Copy" class="row-btns">
+                                                            <span class="copy icon2" (click)="copySIngleProperty(0)"></span>
+                                                        </button>
+
+                                        <button title="Delete" class="row-btns" mwlConfirmationPopover popoverTitle="delete" placement="left" (confirm)="deleteProperty(singleProp.idEle)"
+                                            [popoverTitle]="popoverTitle" [popoverMessage]="popoverMessage">
+                                    <span class="trash icon2"></span>
+                                  </button>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                            <ng-template #noContent>
+                                <!-- Dependencies are not available for this class -->
+                            </ng-template>
+                        </ng-template>
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

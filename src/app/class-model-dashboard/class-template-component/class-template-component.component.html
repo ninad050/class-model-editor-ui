@@ -1,0 +1,53 @@
+
+<ng-container *ngIf="utilityService.currentClassObject!=undefined">
+<div class="container-fluid main-content full-height">
+
+    <div class="tab-content full-height">
+        <div id="tab1" class="tab-pane fade in active full-height">
+
+            <div class="tab-header">
+                <a class="float-left" title="{{utilityService.currentClassObject.id}}">{{utilityService.currentClassObject["classCnfgOrClassRef"][0]["className"]}} &nbsp;</a>
+                <i class="float-left"> |&nbsp; App-Cnxt: {{this.utilityService.currentClassObject["classCnfgOrClassRef"][0]["appSpaceCntx"]}} &nbsp;|&nbsp; </i>
+                <i class="float-left"> &nbsp; Owner-Cnxt: {{this.utilityService.currentClassObject["classCnfgOrClassRef"][0]["ownerCntx"][0]["id"]}}</i> 
+                <button *ngIf="this.utilityService.editflag" type="button" class="btn btn-success float-right" (click)="saveData()">
+                    <span class="icon save"></span> Save</button>
+                <div class="clearfix"></div>
+            </div>
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <!-- <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="inner-menu dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="fa fa-bars"></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </li> -->
+                <li class="nav-item" *ngFor="let tab of utilityService.headTabs">
+                    <a [ngClass]="(this.utilityService.currentHeadTab==tab.id)?'nav-link active':'nav-link'" id="tab_{{tab.id}}" data-toggle="tab" (click)="navigateTo(tab.id)" aria-controls="home" aria-selected="true">{{tab.name}}</a>
+                </li>
+
+            </ul>
+            <div class="tab-content medium-large-height" id="myTabContent">
+                <div class="tab-pane fade show active larger-height overflow-auto" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <!-- loads head info of class template-->
+                    <!-- loads property info of class template-->
+                    <router-outlet name="subtabs" id="subtabs"></router-outlet>
+                    <!-- <app-class-content-component></app-class-content-component> -->
+
+                </div>
+            </div>
+
+            <div id="toast"></div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+        </div>
+        
+    </div>
+
+</div>
+</ng-container>
